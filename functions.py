@@ -24,8 +24,16 @@ def get_count_lucky(tickets, results):
     results.append(count_lucky)
     return count_lucky
 
-def create_ticket_groups(ticket_quantity, ticket_length, split=1):
-    tickets = np.random.randint(0, 10, size=(ticket_quantity, ticket_length)).tolist()
+def split_tickets(number, ticket_length):
+    answer = [int(digit) for digit in str(number).zfill(ticket_length)]
+    return answer
+
+def create_ticket_groups(max_ticket_quantity, ticket_length, split=1):
+
+    start_ticket = 0
+    end_ticket = (10 ** (ticket_length - int(ticket_length/10))) - 1
+
+    tickets = [split_tickets(number, ticket_length) for number in range(start_ticket, end_ticket + 1)[:max_ticket_quantity]]
 
     ticket_groups = []
     len_slice = int(len(tickets) / split)
